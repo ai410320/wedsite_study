@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>基礎元件練習</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="images/favicon.ico" rel="shortcut icon"> -->
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" href="/stylesheets/all.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script> -->
+
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" v-model="newTodo" placeholder="type todo item" @keyup.enter="addTodo">
+      <input type="button" class="send" @click="addTodo">
+      <!-- <button-counter></button-counter>
+      <span>to do list : {{list}}</span> -->
+      <ul>
+        <thing v-for="(item, key) in list" :val="item" :key="key"></thing>
+      </ul>
+    </div>  
+
+    <script type="text/x-template" id="thing">
+      <li>
+        <input type="checkbox" id="item.id">
+        <label for="item.id">{{val.title}}</label>
+      </li>
+    </script>
+
+    <script>
+    Vue.component('thing',{
+      props: ['val'],
+      template: '#thing'
+    });
+    
+    var app = new Vue({
+        el: '#app',
+        data:{
+          newTodo : '',
+          list: [],
+        },
+        methods : {
+          addTodo: function(){
+            var value = this.newTodo.trim();
+            var id = Math.floor(Date.now());
+            this.list.push({
+              id: id,
+              title: value
+            });
+            this.newTodo = '';
+          }
+        }
+    });
+    </script>
+  </body>
+  
+
+</html>
